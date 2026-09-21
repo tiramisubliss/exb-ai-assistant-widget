@@ -94,7 +94,16 @@ Edition.
    git clone <this-repo> ai-assistant
    ```
 
-   The folder name becomes the widget's `name`, so the result must look like:
+   Two rules from the Experience Builder documentation apply here:
+
+   - **The folder name must match the `name` field in `manifest.json`** (`ai-assistant`),
+     and it cannot contain spaces. Cloning into an explicit target folder
+     (`git clone <repo> ai-assistant`) keeps this correct — cloning without a target name
+     creates `exb-ai-assistant-widget`, which does not match and must be renamed.
+   - **Restart the client dev server** after adding the folder (`Ctrl+C`, then `npm start`
+     in `client/`). The webpack bundler only picks up new widget folders on start.
+
+   The result must look like:
 
    ```
    client/your-extensions/widgets/ai-assistant/
@@ -124,16 +133,18 @@ Edition.
 
    ```bash
    cd <Experience-Builder>/client
-   pnpm start
+   npm start          # and in a second terminal: npm start inside server/
    ```
 
-   The builder opens at `https://localhost:3001`.
+   The builder opens at `https://localhost:3001`. Accept the self-signed certificate
+   warning if your browser shows one.
 
 4. **Drop the widget on the canvas**
 
-   Add **AI Assistant** to a page, then open its settings and pick the **Map widget**
-   you want it to talk to. The widget stays disconnected (and shows a hint) until a map
-   is selected.
+   The widget appears in the **Insert widget** panel under the **Custom** section (near
+   the bottom of the list). Add **AI Assistant** to a page, then open its settings and
+   pick the **Map widget** you want it to talk to. The widget stays disconnected (and
+   shows a hint) until a map is selected.
 
 ---
 
