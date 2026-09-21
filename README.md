@@ -51,6 +51,40 @@ rebranded (heading, description, entry message) without touching code.
 
 ---
 
+## Where does `client/` come from?
+
+**`client/` is not part of this repository.** It belongs to your ArcGIS Experience Builder
+**Developer Edition** installation, which Esri distributes separately (download, then
+unzip). A custom widget is a *plugin* that lives inside that installation:
+
+```
+arcgis-experience-builder/          # the Developer Edition download
+├── server/                         # builder UI       (pnpm ci && npm start)
+└── client/                         # webpack bundler  (pnpm ci && npm start)
+    ├── package.json                # dependencies are installed HERE, shared by all widgets
+    ├── node_modules/
+    ├── your-extensions/
+    │   └── widgets/
+    │       └── ai-assistant/       # ← the files in THIS repository belong here
+    │           ├── manifest.json
+    │           ├── config.json
+    │           ├── icon.svg
+    │           └── src/
+    └── sdk-sample/                 # optional: Esri's widget samples
+```
+
+Widgets have **no `package.json` of their own**. They are bundled by the client project,
+so shared packages such as `@arcgis/ai-components` are installed in `client/` and resolved
+from its `node_modules`. Esri's own samples in
+[arcgis-experience-builder-sdk-resources](https://github.com/Esri/arcgis-experience-builder-sdk-resources)
+follow exactly the same shape (`README.md`, `config.json`, `icon.svg`, `manifest.json`,
+`src/` — no `package.json`).
+
+Throughout this README, `<Experience-Builder>` is the folder where you unzipped Developer
+Edition.
+
+---
+
 ## Install
 
 1. **Copy the widget into your Experience Builder project**
